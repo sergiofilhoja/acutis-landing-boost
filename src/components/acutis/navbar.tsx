@@ -20,6 +20,15 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToContact = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header 
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -31,8 +40,7 @@ export function Navbar() {
       <div className="container px-6 mx-auto">
         <nav className="flex items-center justify-between">
           <a href="#" className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-gradient">ACUTIS</span>
-            <span className="text-sm font-medium text-white/80">TECHNOLOGY</span>
+            <img src="https://acutistechnology.com.br/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fnovalogofundobranco.f667e628.png&w=128&q=75" alt="Acutis Technology" className="h-auto" />
           </a>
           
           {/* Desktop Navigation */}
@@ -51,7 +59,7 @@ export function Navbar() {
                 Contato
               </a>
             </div>
-            <Button className="btn-gradient font-medium">Solicitar orçamento</Button>
+            <Button className="btn-gradient font-medium" onClick={scrollToContact}>Solicitar orçamento</Button>
           </div>
           
           {/* Mobile Menu Button */}
@@ -96,7 +104,7 @@ export function Navbar() {
             </a>
             <Button 
               className="btn-gradient font-medium mt-2 w-full"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={scrollToContact}
             >
               Solicitar orçamento
             </Button>

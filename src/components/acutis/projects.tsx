@@ -8,7 +8,7 @@ const projects = [
     id: 1,
     title: "Procon Digital",
     description: "Sistema para procons que inclui ferramenta institucional, dashboard para acompanhamento de denúncias e reclamações, e aplicativo para cidadãos realizarem reclamações.",
-    image: "https://images.unsplash.com/photo-1593642634524-b40b5baae6bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2532&q=80",
+    image: "https://i.imgur.com/PfbRKrP.png",
     category: "Sistemas Integrados",
     features: ["Dashboard administrativo", "App para cidadãos", "Gestão de denúncias", "Relatórios automatizados"]
   },
@@ -16,7 +16,7 @@ const projects = [
     id: 2,
     title: "K Distribuidora",
     description: "Sistema completo para distribuidoras de cosméticos com landing page de conversão e dashboard administrativo para gestão do negócio.",
-    image: "https://images.unsplash.com/photo-1560264280-88b68371db39?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    image: "https://i.imgur.com/Csbdl6o.png",
     category: "E-commerce & Gestão",
     features: ["Landing page de alta conversão", "Painel administrativo", "Gestão de produtos", "Relatórios de vendas"]
   },
@@ -24,7 +24,7 @@ const projects = [
     id: 3,
     title: "Vip Loterias",
     description: "Loteria digital com interfaces para administrador e usuários, permitindo gerenciamento de bilhetes, carteiras, jogos disponíveis e transações financeiras.",
-    image: "https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    image: "https://i.imgur.com/UzEYz9o.png",
     category: "Plataforma de Jogos",
     features: ["Gestão de bilhetes", "Apostas online", "Carteira digital", "Integração de pagamentos"]
   },
@@ -32,7 +32,7 @@ const projects = [
     id: 4,
     title: "Escola do Consumidor",
     description: "Sistema educacional com landing page, área do aluno para cadastro e acesso a cursos, e administrador para gestão de cursos, professores e aulas.",
-    image: "https://images.unsplash.com/photo-1581092921461-39b9d507a8ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    image: "https://i.imgur.com/c1tIMKX.png",
     category: "Plataforma Educacional",
     features: ["Área do aluno", "Catálogo de cursos", "Sistema de aulas", "Gestão de conteúdo"]
   }
@@ -101,8 +101,8 @@ export function Projects() {
                     <span className="inline-block px-3 py-1 text-xs rounded-full bg-acutis-purple/20 text-acutis-purple-light mb-2">
                       {activeProject.category}
                     </span>
-                    <h3 className="text-xl font-bold mb-2">{activeProject.title}</h3>
-                    <p className="text-sm text-white/70 mb-4 max-w-lg">
+                    <h3 className="text-xl font-bold mb-2 text-black">{activeProject.title}</h3>
+                    <p className="text-sm text-white/70 mb-4 max-w-lg text-black">
                       {activeProject.description}
                     </p>
                   </div>
@@ -112,7 +112,7 @@ export function Projects() {
                   {activeProject.features.map((feature, index) => (
                     <span 
                       key={index}
-                      className="px-2 py-1 text-xs bg-white/5 border border-white/10 rounded-md"
+                      className="px-2 py-1 text-xs bg-white/5 border border-black/10 rounded-md text-black"
                     >
                       {feature}
                     </span>
@@ -154,9 +154,9 @@ export function Projects() {
               ))}
             </div>
             
-            <Button className="btn-gradient font-medium w-full mt-4">
+            {/* <Button className="btn-gradient font-medium w-full mt-4">
               Ver todos os projetos
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

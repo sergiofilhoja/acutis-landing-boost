@@ -88,7 +88,7 @@ export function About() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 reveal-animation">
           <div className="text-center">
-            <h4 className="text-4xl md:text-5xl font-bold text-gradient mb-2">+50</h4>
+            <h4 className="text-4xl md:text-5xl font-bold text-gradient mb-2">+10</h4>
             <p className="text-white/70 text-sm">Projetos entregues</p>
           </div>
           

@@ -1,9 +1,56 @@
-
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
+import emailjs from '@emailjs/browser';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
 export function Contact() {
+  const form = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({
+    type: null,
+    message: '',
+  });
+  
+  const sendEmail = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!form.current) return;
+    
+    setIsSubmitting(true);
+    setFormStatus({ type: null, message: '' });
+
+    // EmailJS credentials
+    const serviceId = 'service_sfck4qn';
+    const templateId = 'template_3ucdexp';
+    const publicKey = 'uXFgoZVf3D8yGWROP';
+
+    emailjs.sendForm(serviceId, templateId, form.current, publicKey)
+      .then((result) => {
+        console.log('SUCCESS!', result.text);
+        setFormStatus({
+          type: 'success',
+          message: 'Mensagem enviada com sucesso! Entraremos em contato em breve.'
+        });
+        // Reset form
+        if (form.current) {
+          form.current.reset();
+        }
+      })
+      .catch((error) => {
+        console.log('FAILED...', error.text);
+        setFormStatus({
+          type: 'error',
+          message: 'Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.'
+        });
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -49,29 +96,43 @@ export function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div className="glass-card rounded-xl p-6 reveal-animation">
-            <form className="space-y-6">
+            {formStatus.type && (
+              <div className={`p-4 rounded-lg mb-6 ${
+                formStatus.type === 'success' 
+                  ? 'bg-green-500/10 text-green-400 border border-green-500/20' 
+                  : 'bg-red-500/10 text-red-400 border border-red-500/20'
+              }`}>
+                {formStatus.message}
+              </div>
+            )}
+            
+            <form ref={form} onSubmit={sendEmail} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
+                  <label htmlFor="user_name" className="block text-sm font-medium mb-2">
                     Nome completo
                   </label>
                   <input 
                     type="text" 
-                    id="name" 
+                    id="user_name"
+                    name="user_name" 
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-acutis-purple/50 focus:border-transparent"
                     placeholder="Seu nome"
+                    required
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                  <label htmlFor="user_email" className="block text-sm font-medium mb-2">
                     Email
                   </label>
                   <input 
                     type="email" 
-                    id="email" 
+                    id="user_email"
+                    name="user_email" 
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-acutis-purple/50 focus:border-transparent"
                     placeholder="seu@email.com"
+                    required
                   />
                 </div>
               </div>
@@ -82,9 +143,11 @@ export function Contact() {
                 </label>
                 <input 
                   type="text" 
-                  id="subject" 
+                  id="subject"
+                  name="subject" 
                   className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-acutis-purple/50 focus:border-transparent"
                   placeholder="Assunto da mensagem"
+                  required
                 />
               </div>
               
@@ -93,15 +156,21 @@ export function Contact() {
                   Mensagem
                 </label>
                 <textarea 
-                  id="message" 
+                  id="message"
+                  name="message" 
                   rows={5}
                   className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-acutis-purple/50 focus:border-transparent resize-none"
                   placeholder="Descreva seu projeto ou dúvida"
+                  required
                 ></textarea>
               </div>
               
-              <Button type="submit" className="btn-gradient w-full">
-                Enviar mensagem
+              <Button 
+                type="submit" 
+                className="btn-gradient w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Enviando...' : 'Enviar mensagem'}
               </Button>
             </form>
           </div>
@@ -124,8 +193,8 @@ export function Contact() {
                 <div>
                   <h4 className="font-medium mb-1">Email</h4>
                   <p className="text-white/70 text-sm mb-1">Resposta em até 24 horas</p>
-                  <a href="mailto:contato@acutis.com.br" className="text-acutis-purple-light hover:underline">
-                    contato@acutis.com.br
+                  <a href="mailto:acutistechnology@gmail.com" className="text-acutis-purple-light hover:underline">
+                    acutistechnology@gmail.com
                   </a>
                 </div>
               </div>
@@ -138,8 +207,8 @@ export function Contact() {
                 <div>
                   <h4 className="font-medium mb-1">Telefone</h4>
                   <p className="text-white/70 text-sm mb-1">Segunda a Sexta, 9h às 18h</p>
-                  <a href="tel:+551199999999" className="text-acutis-purple-light hover:underline">
-                    +55 (11) 99999-9999
+                  <a href="tel:+5583999378382" className="text-acutis-purple-light hover:underline">
+                    +55 (83) 99937-8382
                   </a>
                 </div>
               </div>
@@ -151,10 +220,9 @@ export function Contact() {
                 
                 <div>
                   <h4 className="font-medium mb-1">Endereço</h4>
-                  <p className="text-white/70 text-sm mb-1">Visitas com agendamento prévio</p>
+                  <p className="text-white/70 text-sm mb-1">Agendamento prévio de reuniões</p>
                   <address className="not-italic text-acutis-purple-light">
-                    Av. Paulista, 1000 - Bela Vista<br />
-                    São Paulo - SP, 01310-100
+                    Remoto
                   </address>
                 </div>
               </div>

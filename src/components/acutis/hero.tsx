@@ -43,7 +43,7 @@ export function Hero() {
           {/* Text Content */}
           <div className="flex flex-col gap-6 reveal-animation">
             <div className="inline-flex items-center py-1 px-4 rounded-full bg-acutis-purple/10 border border-acutis-purple/20 max-w-max">
-              <span className="text-xs font-medium text-acutis-purple-light">Software House Premium</span>
+              <span className="text-xs font-medium text-acutis-purple-light">Software House</span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
@@ -71,7 +71,7 @@ export function Hero() {
                 <div className="w-10 h-10 rounded-full border-2 border-acutis-black bg-white/90 flex items-center justify-center text-acutis-black text-xs font-medium">4.9</div>
               </div>
               <p className="text-sm text-white/70">
-                <span className="text-white font-medium">+50 projetos</span> entregues com 
+                <span className="text-white font-medium">+10 projetos</span> entregues com 
                 <span className="text-white font-medium"> 98% de satisfação</span>
               </p>
             </div>
